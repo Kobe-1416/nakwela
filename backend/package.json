@@ -1,7 +1,7 @@
 {
   "name": "township-slots-api",
   "version": "1.0.0",
-  "description": "Backend API for Township Slots booking prototype",
+  "description": "Backend API for JustBook-It booking prototype",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
