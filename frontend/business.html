@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Business — Township Slots</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="topbar-row">
+      <button class="back-btn" id="backBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div>
+        <div class="topbar-title" id="bizName">Loading...</div>
+        <div class="topbar-sub" id="bizMeta"></div>
+      </div>
+      <div class="role-pill" id="rolePill">Customer view</div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div id="hoursBubble" class="hours-bubble">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span id="hoursText">08:00 – 18:00</span>
+    </div>
+
+    <div class="day-tabs">
+      <div class="day-tab active" id="tabToday" data-day="today">Today</div>
+      <div class="day-tab" id="tabTomorrow" data-day="tomorrow">Tomorrow</div>
+    </div>
+
+    <div id="ownerHint" class="notice-box" style="display:none; margin-top: 14px;">
+      Tap a slot to manage it. You can block it out in advance, or mark a booked customer as late once their time has started.
+    </div>
+
+    <div id="customerNotice" class="notice-box" style="margin-top: 14px;">
+      Please arrive before 5 minutes past your slot's start time, or it may be marked late.
+    </div>
+
+    <div class="slot-grid" id="slotGrid"></div>
+
+    <div class="legend" id="legend"></div>
+
+    <div id="reminderBlock" class="reminder-block" style="display:none;">
+      <div class="reminder-title">Remind me before</div>
+      <div class="reminder-sub">We'll send a push notification ahead of your slot.</div>
+      <div class="chip-row" id="reminderChips">
+        <div class="chip" data-mins="15">15 min</div>
+        <div class="chip active" data-mins="20">20 min</div>
+        <div class="chip" data-mins="25">25 min</div>
+        <div class="chip" data-mins="30">30 min</div>
+      </div>
+    </div>
+
+    <div id="summaryCard" class="summary-card" style="display:none;"></div>
+
+  </div>
+
+  <div class="bottom-bar" id="bottomBar" style="display:none;">
+    <button class="btn btn-primary" id="primaryBtn" disabled>Select a slot to continue</button>
+  </div>
+
+</div>
+
+<!-- Booking confirmation sheet (customer) -->
+<div class="overlay" id="confirmOverlay">
+  <div class="sheet">
+    <div class="sheet-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#0E7C4A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="sheet-title">Booking confirmed</div>
+    <div class="sheet-text">You'll get a push notification before your slot. Show your code to the business when you arrive.</div>
+    <div class="sheet-code">
+      <div class="sheet-code-label">Your booking code</div>
+      <div class="sheet-code-value" id="bookingCode">TS-0000</div>
+    </div>
+    <button class="btn btn-primary" id="confirmDoneBtn">Done</button>
+  </div>
+</div>
+
+<!-- Notification permission sheet -->
+<div class="overlay" id="notifOverlay">
+  <div class="sheet">
+    <div class="sheet-icon blue">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2a2 2 0 01-.6 1.4L4 17h5m6 0a3 3 0 11-6 0m6 0H9" stroke="#1E73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="sheet-title">Allow notifications?</div>
+    <div class="sheet-text">Township Slots would like to send you a reminder before your booking time.</div>
+    <div class="btn-row">
+      <button class="btn btn-outline" id="notifDeclineBtn">Not now</button>
+      <button class="btn btn-secondary" id="notifAllowBtn">Allow</button>
+    </div>
+  </div>
+</div>
+
+<!-- Owner: manage slot sheet -->
+<div class="overlay" id="ownerOverlay">
+  <div class="sheet">
+    <div class="sheet-title" id="ownerSheetTitle">Manage 09:00 – 10:00</div>
+    <div class="sheet-text" id="ownerSheetText">This slot is currently open.</div>
+
+    <div id="ownerOpenActions">
+      <div class="btn-row" style="margin-bottom: 10px;">
+        <button class="btn btn-ghost btn-small" id="blockToggle" data-choice="block">Block this slot</button>
+        <button class="btn btn-ghost btn-small" id="lateToggle" data-choice="late" style="display:none;">Mark late</button>
+      </div>
+      <button class="btn btn-primary" id="ownerConfirmBtn">Confirm block</button>
+    </div>
+
+    <div id="ownerBookedActions" style="display:none;">
+      <div class="summary-card" id="ownerBookingInfo" style="margin-top:0;"></div>
+      <div class="btn-row" style="margin-top: 14px;">
+        <button class="btn btn-outline" id="ownerCloseBtn">Close</button>
+        <button class="btn btn-amber" id="markLateBtn">Mark as late</button>
+      </div>
+    </div>
+
+    <div id="ownerBlockedActions" style="display:none;">
+      <div class="sheet-text">This slot is blocked and hidden from customers.</div>
+      <button class="btn btn-outline" id="unblockBtn">Unblock slot</button>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script src="api.js"></script>
+<script src="app.js"></script>
+
+<script src="js/business.js"></script>
+</body>
+</html>
