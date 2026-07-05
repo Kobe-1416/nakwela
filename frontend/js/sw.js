@@ -9,7 +9,7 @@ self.addEventListener("push", event => {
 
         self.registration.showNotification(
 
-            data.title || "JustBook-It",
+            data.title || "Nakwela",
 
             {
 
