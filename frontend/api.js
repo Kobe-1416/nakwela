@@ -244,26 +244,32 @@ async function getOrCreatePushSubscription() {
 
 }
 
-async function subscribeCustomerPush(bookingCode) {
-
-    const subscription =
-        await getOrCreatePushSubscription();
-
-    return saveCustomerSubscription(
-        bookingCode,
-        subscription
+function saveCustomerSubscription(
+    bookingCode,
+    subscription
+) {
+    return api(
+        `/bookings/${bookingCode}/customer-push`,
+        {
+            method: "POST",
+            body: JSON.stringify({
+                subscription
+            })
+        }
     );
-
 }
 
-async function subscribeOwnerPush(businessId) {
-
-    const subscription =
-        await getOrCreatePushSubscription();
-
-    return saveOwnerSubscription(
-        businessId,
-        subscription
+function saveOwnerSubscription(
+    businessId,
+    subscription
+) {
+    return api(
+        `/businesses/${businessId}/owner-push`,
+        {
+            method: "POST",
+            body: JSON.stringify({
+                subscription
+            })
+        }
     );
-
 }
