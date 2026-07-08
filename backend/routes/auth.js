@@ -76,10 +76,10 @@ router.post('/businesses/:id/login', async (req, res) => {
 });
 
 /**
- * POST /api/owner/logout
+ * POST /api/auth/logout
  * Deletes the current session.
  */
-router.post('/owner/logout', requireOwner, async (req, res) => {
+router.post('/auth/logout', requireOwner, async (req, res) => {
   try {
     await pool.query(
       'DELETE FROM sessions WHERE token = $1',
@@ -99,11 +99,11 @@ router.post('/owner/logout', requireOwner, async (req, res) => {
 });
 
 /**
- * GET /api/owner/me
+ * GET /api/auth/me
  * Used by the frontend to verify
  * that the saved token is still valid.
  */
-router.get('/owner/me', requireOwner, async (req, res) => {
+router.get('/auth/me', requireOwner, async (req, res) => {
   res.json({
     businessId: req.ownerBusinessId,
   });

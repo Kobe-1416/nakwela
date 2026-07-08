@@ -6,6 +6,18 @@ const { requireOwner } = require('../middleware/auth');
 
 const router = express.Router();
 
+router.get("/push/public-key", (req, res) => {
+  if (!process.env.VAPID_PUBLIC_KEY) {
+    return res.status(500).json({
+      error: "VAPID public key not configured",
+    });
+  }
+
+  res.json({
+    publicKey: process.env.VAPID_PUBLIC_KEY,
+  });
+});
+
 /**
  * POST /api/businesses/:id/owner-push
  * Save/update the owner's push subscription.
