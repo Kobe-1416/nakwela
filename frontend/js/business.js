@@ -1226,11 +1226,14 @@ document.addEventListener("keydown", e => {
 
 async function enableNotifications(bookingCode) {
 
-    if (!("serviceWorker" in navigator))
-        return;
 
-    if (!("PushManager" in window))
+    if (!("serviceWorker" in navigator)) {
         return;
+    }
+
+    if (!("PushManager" in window)) {
+        return;
+    }
 
     const permission =
         await Notification.requestPermission();

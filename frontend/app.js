@@ -54,3 +54,13 @@ function showToast(msg) {
 function qs(name) {
   return new URLSearchParams(window.location.search).get(name);
 }
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", async () => {
+        try {
+            const registration = await navigator.serviceWorker.register("/frontend/sw.js");
+        } catch (err) {
+            console.error(err);
+        }
+    });
+}

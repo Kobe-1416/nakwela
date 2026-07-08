@@ -138,49 +138,6 @@ function getPublicKey() {
 
 }
 
-function saveCustomerSubscription(
-    bookingCode,
-    subscription
-) {
-
-    return api("/push/customer", {
-
-        method: "POST",
-
-        body: JSON.stringify({
-
-            bookingCode,
-
-            subscription
-
-        })
-
-    });
-
-}
-
-function saveOwnerSubscription(
-    businessId,
-    subscription
-) {
-
-    return api("/push/owner", {
-
-        method: "POST",
-
-        body: JSON.stringify({
-
-            businessId,
-
-            subscription
-
-        })
-
-    });
-
-}
-
-
 // ===============================
 // Push — Subscription Helpers
 // ===============================
@@ -232,16 +189,13 @@ async function getOrCreatePushSubscription() {
             await registration.pushManager.subscribe({
 
                 userVisibleOnly: true,
-
                 applicationServerKey:
                     urlBase64ToUint8Array(publicKey)
 
             });
-
     }
 
     return subscription;
-
 }
 
 function saveCustomerSubscription(
@@ -272,4 +226,28 @@ function saveOwnerSubscription(
             })
         }
     );
+}
+
+async function subscribeCustomerPush(bookingCode) {
+
+    const subscription =
+        await getOrCreatePushSubscription();
+
+    const result = await saveCustomerSubscription(
+        bookingCode,
+        subscription
+    );
+    return result;
+}
+
+async function subscribeOwnerPush(businessId) {
+
+    const subscription =
+        await getOrCreatePushSubscription();
+
+    return saveOwnerSubscription(
+        businessId,
+        subscription
+    );
+
 }
