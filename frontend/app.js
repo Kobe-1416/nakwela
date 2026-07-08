@@ -58,7 +58,7 @@ function qs(name) {
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", async () => {
         try {
-            const registration = await navigator.serviceWorker.register("/frontend/sw.js");
+            const registration = await navigator.serviceWorker.register("/sw.js");
         } catch (err) {
             console.error(err);
         }
