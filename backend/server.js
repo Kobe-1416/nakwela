@@ -12,6 +12,9 @@ const businessRoutes = require('./routes/businesses');
 const authRoutes = require('./routes/auth');
 const bookingRoutes = require('./routes/bookings');
 const pushRoutes = require('./routes/push');
+const cleanupRoutes = require('./routes/cleanup');
+
+app.use('/api', cleanupRoutes);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
