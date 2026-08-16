@@ -14,7 +14,7 @@ const bookingRoutes = require('./routes/bookings');
 const pushRoutes = require('./routes/push');
 const cleanupRoutes = require('./routes/cleanup');
 
-app.use('/api', cleanupRoutes);
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +35,7 @@ app.use('/api', businessRoutes);
 app.use('/api', authRoutes);
 app.use('/api', bookingRoutes);
 app.use('/api', pushRoutes);
+app.use('/api', cleanupRoutes);
 
 // ────────────────────────────────────────────────────────────
 // 404 Handler
