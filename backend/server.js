@@ -68,7 +68,7 @@ app.use((err, req, res, next) => {
 initSchema()
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`🚀 Township Slots API running on port ${PORT}`);
+      console.log(`🚀 Nakwela API running on port ${PORT}`);
     });
   })
   .catch((err) => {
