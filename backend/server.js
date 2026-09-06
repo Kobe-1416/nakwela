@@ -12,7 +12,7 @@ const businessRoutes = require('./routes/businesses');
 const authRoutes = require('./routes/auth');
 const bookingRoutes = require('./routes/bookings');
 const pushRoutes = require('./routes/push');
-const waWebhookRoutes = require('./routes/wa-webhook');
+const webhookRoutes = require('./routes/wa-webhook');
 const cleanupRoutes = require('./routes/cleanup');
 
 
@@ -36,7 +36,7 @@ app.use('/api', businessRoutes);
 app.use('/api', authRoutes);
 app.use('/api', bookingRoutes);
 app.use('/api', pushRoutes);
-app.use('/api', waWebhookRoutes);
+app.use('/api', webhookRoutes);
 app.use('/api', cleanupRoutes);
 
 // ────────────────────────────────────────────────────────────
