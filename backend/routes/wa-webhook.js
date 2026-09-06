@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN
+const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN;
 
 // Meta webhook verification
 router.get("/", (req, res) => {
@@ -20,11 +20,11 @@ router.get("/", (req, res) => {
 
 // Receive WhatsApp events
 router.post('/', (req, res) => {
-    console.log('WhatsApp webhook event:', JSON.stringfy(req.body,  null, 2));
+    console.log('WhatsApp webhook event:', JSON.stringify(req.body,  null, 2));
 
     // Acknowledge receipt
     return res.sendStatus(200);
 
 })
 
-module.exports - router;
+module.exports = router;
