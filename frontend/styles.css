@@ -299,6 +299,46 @@ button { font-family: inherit; }
   font-size: 13.5px;
 }
 
+/* TikTok icon button */
+.tiktok-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 10px 18px;
+  background: #000000;
+  color: white;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: var(--font-body);
+  transition: background 0.2s ease;
+  cursor: pointer;
+  border: none;
+  width: fit-content;
+}
+
+.tiktok-link:hover {
+  background: #1a1a1a;
+}
+
+.tiktok-link svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+  flex-shrink: 0;
+}
+
+/* Make it full width on mobile */
+@media (max-width: 480px) {
+  .tiktok-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* ---------- Register link card ---------- */
 .register-banner {
   margin-top: 26px;
