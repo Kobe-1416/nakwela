@@ -334,7 +334,7 @@ button { font-family: inherit; }
 /* Make it full width on mobile */
 @media (max-width: 480px) {
   .tiktok-link {
-    width: 55%;
+    width: 50%;
     justify-content: center;
   }
 }
