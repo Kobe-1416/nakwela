@@ -32,7 +32,7 @@ router.post('/cleanup', async (req, res) => {
       // Delete bookings older than 60 days
       const bookingsResult = await client.query(`
         DELETE FROM bookings
-        WHERE created_at < NOW() - INTERVAL '60 days'
+        WHERE created_at < NOW() - INTERVAL '2 days'
       `);
 
       // Delete customer push subscriptions
@@ -49,7 +49,7 @@ router.post('/cleanup', async (req, res) => {
       // Delete sessions older than 30 days
       const sessionsResult = await client.query(`
         DELETE FROM sessions
-        WHERE created_at < NOW() - INTERVAL '30 days'
+        WHERE created_at < NOW() - INTERVAL '2 days'
       `);
 
       await client.query('COMMIT');
